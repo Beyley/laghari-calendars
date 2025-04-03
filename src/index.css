@@ -1,0 +1,93 @@
+:root {
+    /* Colours */
+    --laghari: #FEDA69;
+
+    --solar: var(--laghari);
+    --martian: #FF96BB;
+    --neptunian: #89B7FF;
+
+    --background: black;
+    --slight-highlight: #FEDA6915;
+    --strong-highlight: #FEDA6950;
+
+    /* Sizes */
+    --day-size: 120px;
+    --padding: 20px;
+    --line-width: 1px;
+
+    --title-size: 48px;
+    --day-text-size: 20px;
+}
+
+* {
+    background-color: black;
+    color: var(--laghari);
+
+    padding: 0px;
+    margin: var(--padding);
+
+    left: 0%;
+    top: 0%;
+}
+
+.current-day {
+    background-color: var(--strong-highlight);
+}
+
+.day-contents {
+    /* width: 100%; */
+    /* height: 100%; */
+
+    display: inline-block;
+
+    margin: 0px;
+    left: 7.5%;
+    top: 7.5%;
+
+    text-align: left;
+    vertical-align: top;
+    line-height: var(--day-text-size);
+    font-size: var(--day-text-size);
+
+    background-color: transparent;
+
+    position: relative;
+}
+
+.title {
+    color: var(--laghari);
+    position: fixed;
+    font-size: var(--title-size);
+}
+
+table {
+    border: none;
+    border-collapse: collapse;
+    border-color: var(--laghari);
+    padding: var(--padding);
+    position: fixed;
+
+    top: calc(var(--title-size) + var(--padding) * 2);
+    left: var(--padding)
+}
+
+th,
+td {
+    border: var(--line-width) solid;
+    border-collapse: collapse;
+    border-color: var(--laghari);
+}
+
+tr:nth-child(even) td:nth-child(even),
+tr:nth-child(odd) td:nth-child(odd) {
+    background-color: var(--slight-highlight);
+}
+
+td {
+    width: var(--day-size);
+    max-width: var(--day-size);
+    height: var(--day-size);
+    max-height: var(--day-size);
+
+    vertical-align: top;
+}

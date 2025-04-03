@@ -1,0 +1,26 @@
+@font-face {
+    font-family: "solar";
+    src: url("fonts/solar.woff2") format('woff2');
+}
+
+.solar {
+    font-family: "solar";
+}
+
+@font-face {
+    font-family: "martian";
+    src: url("fonts/martian.woff2") format('woff2');
+}
+
+.martian {
+    font-family: "martian"
+}
+
+@font-face {
+    font-family: "neptunian";
+    src: url("fonts/neptunian.woff2") format('woff2');
+}
+
+.neptunian {
+    font-family: "neptunian";
+}
