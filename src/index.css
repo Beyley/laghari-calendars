@@ -1,6 +1,7 @@
 :root {
     /* Colours */
     --laghari: #FEDA69;
+    --bright: #DDDDDD;
 
     --solar: var(--laghari);
     --martian: #FF96BB;
@@ -10,13 +11,15 @@
     --slight-highlight: #FEDA6915;
     --strong-highlight: #FEDA6950;
 
+    --table-scale: 1.0;
+
     /* Sizes */
-    --day-size: 120px;
+    --day-size: calc(120px * var(--table-scale));
     --padding: 20px;
     --line-width: 1px;
 
     --title-size: 48px;
-    --day-text-size: 20px;
+    --day-text-size: calc(20px * var(--table-scale));
 }
 
 * {
@@ -31,7 +34,56 @@
 }
 
 .current-day {
-    background-color: var(--strong-highlight);
+    background-color: var(--strong-highlight) !important;
+}
+
+.slider-label {
+    margin: 0px;
+    display: inline-block;
+    vertical-align: super;
+
+    font-size: 18px;
+    line-height: 18px;
+}
+
+.slider {
+    display: inline-block;
+    vertical-align: bottom;
+
+    -webkit-appearance: none;
+    appearance: none;
+
+    outline: none;
+    background: var(--strong-highlight);
+    border-radius: 10px;
+
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 50%;
+    background: var(--bright);
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 50%;
+    background: var(--bright);
+    cursor: pointer;
 }
 
 .day-contents {
@@ -56,8 +108,11 @@
 
 .title {
     color: var(--laghari);
-    position: fixed;
     font-size: var(--title-size);
+}
+
+.calendar-table {
+    overflow: hidden;
 }
 
 table {
@@ -65,10 +120,9 @@ table {
     border-collapse: collapse;
     border-color: var(--laghari);
     padding: var(--padding);
-    position: fixed;
 
     top: calc(var(--title-size) + var(--padding) * 2);
-    left: var(--padding)
+    left: var(--padding);
 }
 
 th,

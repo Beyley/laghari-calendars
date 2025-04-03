@@ -11,33 +11,24 @@
     </script>
   </head>
   <body>
-    <div>
-      <p class="title solar">
-        ranyar2
-      </p>
-    </div>
-    <div>
-      <table>
-        <tr>
-          <td class="solar"><div class="day-contents">fa</div></td>
-          <td class="solar"><div class="day-contents">tya</div></td>
-          <td class="solar"><div class="day-contents">trei</div></td>
-          <td class="solar"><div class="day-contents">hei</div></td>
-          <td class="solar"><div class="day-contents">heini</div></td>
-        </tr>
-        <tr>
-          <td class="solar"><div class="day-contents">heintyei</div></td>
-          <td class="solar"><div class="day-contents">heinti</div></td>
-          <td class="current-day solar"><div class="day-contents">heity2</div></td>
-          <td class="solar"><div class="day-contents">trei tra trei</div></td>
-          <td class="solar"><div class="day-contents">tya tra heini</div></td>
-        </tr>
-        <tr>
-          <td class="solar"><div class="day-contents">hei ni heinti</div></td>
-          <td class="solar"><div class="day-contents">trei tra hei</div></td>
-          <td class="solar"><div class="day-contents">heintyei ni heinti</div></td>
-        </tr>
-      </table>
+    <header>
+      <div>
+        <p>
+          <span id="calendar-title" class="title solar">
+            ranyar2
+          </span>
+          <span class="slider-container">
+            <span class="slider-label lato-regular">Scale:</span>
+            <input type="range" min="0.1" max="2" value="1" step="0.01" class="slider" id="scale_slider">
+          </span>
+          <span class="slider-container">
+            <span class="slider-label lato-regular">Max Columns:</span>
+            <input type="range" min="1" max="30" value="18" class="slider" id="max_width_slider">
+          </span>
+        </p>
+      </div>
+    </header>
+    <div id="calendar-table" class="calendar-table">
     </div>
   </body>
 </html>

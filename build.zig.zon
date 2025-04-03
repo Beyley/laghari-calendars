@@ -4,7 +4,10 @@
     .fingerprint = 0xc4c4f67b62575bee, // Changing this has security and trust implications.
     .minimum_zig_version = "0.15.0-dev.77+aa8aa6625",
     .dependencies = .{
-        .laghari = .{ .path = "../liblaghari" },
+        .laghari = .{
+            .url = "git+https://github.com/Beyley/liblaghari#09ac6605b6d0c4c85fadd5e3689362eda8e05664",
+            .hash = "laghari-0.0.0-KEQne3pKAAAW6Aznj-7aAItGhI69WxL5Pin37D1gUrH5",
+        },
     },
     .paths = .{
         "build.zig",
