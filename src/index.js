@@ -1,4 +1,4 @@
-const wasm = await WebAssembly.instantiateStreaming(fetch('/laghari.wasm'), {
+const wasm = await WebAssembly.instantiateStreaming(fetch('laghari.wasm'), {
     env: { print: (x) => console.log(x) },
 });
 
