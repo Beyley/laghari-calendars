@@ -5,8 +5,8 @@
     .minimum_zig_version = "0.15.0-dev.77+aa8aa6625",
     .dependencies = .{
         .laghari = .{
-            .url = "git+https://github.com/Beyley/liblaghari#09ac6605b6d0c4c85fadd5e3689362eda8e05664",
-            .hash = "laghari-0.0.0-KEQne3pKAAAW6Aznj-7aAItGhI69WxL5Pin37D1gUrH5",
+            .url = "git+https://github.com/Beyley/liblaghari#a68bebe88471d630f0c37746741b3b08496c5eab",
+            .hash = "laghari-0.0.0-KEQne0BPAADSTdZSy_crMFJ99YIXUd-S-N9_WsYMzvOb",
         },
     },
     .paths = .{

@@ -3,7 +3,7 @@
     src: url("fonts/solar.woff2") format('woff2');
 }
 
-.solar {
+.solar-font {
     font-family: "solar";
 }
 
@@ -12,7 +12,7 @@
     src: url("fonts/martian.woff2") format('woff2');
 }
 
-.martian {
+.martian-font {
     font-family: "martian"
 }
 
@@ -21,6 +21,6 @@
     src: url("fonts/neptunian.woff2") format('woff2');
 }
 
-.neptunian {
+.neptunian-font {
     font-family: "neptunian";
 }

@@ -3,13 +3,23 @@
     --laghari: #FEDA69;
     --bright: #DDDDDD;
 
+    --slight-highlight: #FEDA6915;
+    --strong-highlight: #FEDA6950;
+
     --solar: var(--laghari);
     --martian: #FF96BB;
     --neptunian: #89B7FF;
 
+    --slight-solar-highlight: #FEDA6915;
+    --strong-solar-highlight: #FEDA6950;
+
+    --slight-martian-highlight: #FF96BB15;
+    --strong-martian-highlight: #FF96BB50;
+
+    --slight-neptunian-highlight: #89B7FF15;
+    --strong-neptunian-highlight: #89B7FF50;
+
     --background: black;
-    --slight-highlight: #FEDA6915;
-    --strong-highlight: #FEDA6950;
 
     --table-scale: 1.0;
 
@@ -33,8 +43,16 @@
     top: 0%;
 }
 
-.current-day {
-    background-color: var(--strong-highlight) !important;
+.current-day.solar {
+    background-color: var(--strong-solar-highlight) !important;
+}
+
+.current-day.martian {
+    background-color: var(--strong-martian-highlight) !important;
+}
+
+.current-day.neptunian {
+    background-color: var(--strong-neptunian-highlight) !important;
 }
 
 .slider-label {
@@ -125,16 +143,52 @@ table {
     left: var(--padding);
 }
 
+.solar {
+    color: var(--solar);
+}
+
+.martian {
+    color: var(--martian);
+}
+
+.neptunian {
+    color: var(--neptunian);
+}
+
 th,
 td {
     border: var(--line-width) solid;
     border-collapse: collapse;
-    border-color: var(--laghari);
 }
 
-tr:nth-child(even) td:nth-child(even),
-tr:nth-child(odd) td:nth-child(odd) {
-    background-color: var(--slight-highlight);
+th.solar,
+td.solar {
+    border-color: var(--solar);
+}
+
+th.martian,
+td.martian {
+    border-color: var(--martian);
+}
+
+th.neptunian,
+td.neptunian {
+    border-color: var(--neptunian);
+}
+
+tr:nth-child(even).solar td:nth-child(even).solar,
+tr:nth-child(odd).solar td:nth-child(odd).solar {
+    background-color: var(--slight-solar-highlight);
+}
+
+tr:nth-child(even).martian td:nth-child(even).martian,
+tr:nth-child(odd).martian td:nth-child(odd).martian {
+    background-color: var(--slight-martian-highlight);
+}
+
+tr:nth-child(even) td:nth-child(even) .neptunian,
+tr:nth-child(odd) td:nth-child(odd) .neptunian {
+    background-color: var(--slight-neptunian-highlight);
 }
 
 td {
