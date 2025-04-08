@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="lato.css">
     <link rel="stylesheet" href="index.css">
-    <script type="module" src="index.js">
+    <script type="text/javascript" src="index.js">
     </script>
   </head>
   <body>
@@ -19,12 +19,24 @@
             ranyar2
           </span>
           <span class="slider-container">
-            <span class="slider-label lato-regular">Scale:</span>
+            <span class="slider-label lato-light">Scale:</span>
             <input type="range" min="0.1" max="2" value="1" step="0.01" class="slider" id="scale_slider">
           </span>
           <span class="slider-container">
-            <span class="slider-label lato-regular">Max Columns:</span>
+            <span class="slider-label lato-light">Max Columns:</span>
             <input type="range" min="1" max="30" value="18" class="slider" id="max_width_slider">
+          </span>
+          <span class="slider-container">
+            <span class="slider-label lato-light">Language:</span>
+            <span class="dropdown">
+              <button class="dropbtn lato-light" id="language-dropdown-button">Dropdown</button>
+              <span class="dropdown-content">
+                <a href="#" onclick="set_language(Language.english)" class="lato-light">English</a>
+                <a href="#" onclick="set_language(Language.solar)" class="solar solar-font">t2hp2r2 nya</a>
+                <a href="#" onclick="set_language(Language.martian)" class="martian martian-font">t2hp2r2 naq</a>
+                <a href="#" onclick="set_language(Language.neptunian)" class="neptunian neptunian-font">SHPRE YHG</a>
+              </span>
+            </span>
           </span>
         </p>
       </div>

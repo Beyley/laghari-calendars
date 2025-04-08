@@ -1,20 +1,17 @@
-const wasm = await WebAssembly.instantiateStreaming(fetch('laghari.wasm'), {
-    env: { print: (x) => console.log(x) },
-});
-
-const {
-    laghariHekenicYearFromGregorian,
-    laghariHekenicMonthFromGregorian,
-    laghariHekenicDayFromGregorian,
-    laghariHekenicMonthDayFromGregorian,
-    laghariHekenicMonthFontNamePtr,
-    laghariHekenicMonthFontNameLen,
-    laghariHekenicToGregorianEpoch,
-    laghariMartianYearFromGregorian,
-    laghariMartianDayFromGregorian,
-    laghariMartianToGregorianEpoch,
-    memory
-} = wasm.instance.exports;
+var wasm;
+var laghariHekenicYearFromGregorian;
+var laghariHekenicMonthFromGregorian;
+var laghariHekenicDayFromGregorian;
+var laghariHekenicMonthDayFromGregorian;
+var laghariHekenicMonthFontNamePtr;
+var laghariHekenicMonthFontNameLen;
+var laghariHekenicToGregorianEpoch;
+var laghariMartianYearFromGregorian;
+var laghariMartianDayFromGregorian;
+var laghariMartianToGregorianEpoch;
+var laghariLanguageEndonymPtr;
+var laghariLanguageEndonymLen;
+var memory;
 
 const decodeString = (pointer, length) => {
     const slice = new Uint8Array(
@@ -95,8 +92,9 @@ class Language {
     static martian = 1;
     static neptunian = 2;
     static future_solar = 3;
-    static oeaiaa = 4;
-    static english = 5;
+    static informal_oeaiaa = 4;
+    static formal_oeaiaa = 5;
+    static english = 6;
 
     static style_class_name(language) {
         switch (language) {
@@ -117,6 +115,13 @@ class Language {
         }
     }
 
+    static endonym(language) {
+        let ptr = laghariLanguageEndonymPtr(language);
+        let len = laghariLanguageEndonymLen(language);
+
+        return decodeString(ptr, len);
+    }
+
     static font_class_name(language) {
         switch (language) {
             case Language.solar:
@@ -130,7 +135,7 @@ class Language {
             case Language.oeaiaa:
                 throw new Error("TODO: O'eaiaa font");
             case Language.english:
-                return "lato-regular";
+                return "lato-light";
             default:
                 throw new Error("Invalid language passed");
         }
@@ -185,12 +190,11 @@ class MartianDate {
     }
 }
 
-let scale_slider = document.getElementById("scale_slider");
-let max_width_slider = document.getElementById("max_width_slider");
-
 function generate_hekenic_table(table_element, hekenic_date, language) {
     let days_left = 116;
     let i = 0;
+
+    let max_width_slider = document.getElementById("max_width_slider");
 
     let max_width = max_width_slider.value;
 
@@ -234,6 +238,8 @@ function generate_hekenic_table(table_element, hekenic_date, language) {
 function generate_martian_table(table_element, martian_date, language) {
     let days_left = 780;
     let i = 0;
+
+    let max_width_slider = document.getElementById("max_width_slider");
 
     let max_width = max_width_slider.value;
 
@@ -300,41 +306,116 @@ function current_day() {
     return Math.floor(tz_epoch_ms / (24 * 60 * 60 * 1000));
 }
 
-let calendar = Calendar.hekenic;
-let language = Language.solar;
+var calendar = Calendar.hekenic;
+var current_language = Language.solar;
 
-let title_element = document.getElementById("calendar-title");
+var now;
+var date;
 
-let now = current_day();
-let date;
-switch (calendar) {
-    case Calendar.hekenic:
-        date = HekenicDate.from_gregorian(now);
+function clear_style(element) {
+    element.classList.remove(Language.font_class_name(Language.english));
+    element.classList.remove(Language.font_class_name(Language.solar));
+    element.classList.remove(Language.font_class_name(Language.martian));
+    element.classList.remove(Language.font_class_name(Language.neptunian));
+    // element.classList.remove(Language.font_class_name(Language.future_solar));
+    // element.classList.remove(Language.font_class_name(Language.informal_oeaiaa));
+    // element.classList.remove(Language.font_class_name(Language.formal_oeaiaa));
 
-        title_element.textContent = HekenicCalendar.month_name(date.month, language);
-        title_element.classList.add(HekenicCalendar.style_to_use(language));
-        title_element.classList.add(Language.font_class_name(language));
-        break;
-    case Calendar.martian:
-        date = MartianDate.from_gregorian(now);
-
-        title_element.textContent = MartianCalendar.title(language);
-        title_element.classList.add(Language.style_class_name(Language.martian));
-        title_element.classList.add(Language.font_class_name(language));
-
-        break;
-    default:
-        throw new Error("Unhandled calendar type");
-
+    element.classList.remove(Language.style_class_name(Language.english));
+    element.classList.remove(Language.style_class_name(Language.solar));
+    element.classList.remove(Language.style_class_name(Language.martian));
+    element.classList.remove(Language.style_class_name(Language.neptunian));
+    // element.classList.remove(Language.style_class_name(Language.future_solar));
+    // element.classList.remove(Language.style_class_name(Language.informal_oeaiaa));
+    // element.classList.remove(Language.style_class_name(Language.formal_oeaiaa));
 }
 
-// generate the table
-generate_table(calendar, language, date);
+function render() {
+    now = current_day();
 
-scale_slider.oninput = function () {
-    document.documentElement.style.setProperty('--table-scale', this.value);
-};
+    let title_element = document.getElementById("calendar-title");
 
-max_width_slider.oninput = function () {
-    generate_table(calendar, language, date);
-};
+    clear_style(title_element);
+
+    switch (calendar) {
+        case Calendar.hekenic:
+            date = HekenicDate.from_gregorian(now);
+
+            title_element.textContent = HekenicCalendar.month_name(date.month, current_language);
+            title_element.classList.add(HekenicCalendar.style_to_use(current_language));
+            title_element.classList.add(Language.font_class_name(current_language));
+            break;
+        case Calendar.martian:
+            date = MartianDate.from_gregorian(now);
+
+            title_element.textContent = MartianCalendar.title(current_language);
+            title_element.classList.add(Language.style_class_name(Language.martian));
+            title_element.classList.add(Language.font_class_name(current_language));
+
+            break;
+        default:
+            throw new Error("Unhandled calendar type");
+
+    }
+
+    // generate the table
+    generate_table(calendar, current_language, date);
+}
+
+function update_language_dropdown() {
+    let dropdown_button = document.getElementById("language-dropdown-button");
+
+    clear_style(dropdown_button);
+
+    dropdown_button.classList.add(Language.font_class_name(current_language));
+    dropdown_button.classList.add(Language.style_class_name(current_language));
+
+    dropdown_button.innerHTML = Language.endonym(current_language);
+}
+
+function set_language(language) {
+    current_language = language;
+
+    update_language_dropdown();
+    render();
+}
+
+// setup initial
+
+async function setup() {
+    wasm = await WebAssembly.instantiateStreaming(fetch('laghari.wasm'), {
+        env: { print: (x) => console.log(x) },
+    });
+    laghariHekenicYearFromGregorian = wasm.instance.exports.laghariHekenicYearFromGregorian;
+    laghariHekenicMonthFromGregorian = wasm.instance.exports.laghariHekenicMonthFromGregorian;
+    laghariHekenicDayFromGregorian = wasm.instance.exports.laghariHekenicDayFromGregorian;
+    laghariHekenicMonthDayFromGregorian = wasm.instance.exports.laghariHekenicMonthDayFromGregorian;
+    laghariHekenicMonthFontNamePtr = wasm.instance.exports.laghariHekenicMonthFontNamePtr;
+    laghariHekenicMonthFontNameLen = wasm.instance.exports.laghariHekenicMonthFontNameLen;
+    laghariHekenicToGregorianEpoch = wasm.instance.exports.laghariHekenicToGregorianEpoch;
+    laghariMartianYearFromGregorian = wasm.instance.exports.laghariMartianYearFromGregorian;
+    laghariMartianDayFromGregorian = wasm.instance.exports.laghariMartianDayFromGregorian;
+    laghariMartianToGregorianEpoch = wasm.instance.exports.laghariMartianToGregorianEpoch;
+    laghariLanguageEndonymPtr = wasm.instance.exports.laghariLanguageEndonymPtr;
+    laghariLanguageEndonymLen = wasm.instance.exports.laghariLanguageEndonymLen;
+    memory = wasm.instance.exports.memory;
+
+    let scale_slider = document.getElementById("scale_slider");
+    let max_width_slider = document.getElementById("max_width_slider");
+
+    scale_slider.oninput = function () {
+        document.documentElement.style.setProperty('--table-scale', this.value);
+    };
+
+    max_width_slider.oninput = function () {
+        generate_table(calendar, current_language, date);
+    };
+
+    set_language(current_language);
+
+    render();
+}
+
+setup();
+
+
