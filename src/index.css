@@ -143,6 +143,10 @@ table {
     left: var(--padding);
 }
 
+.laghari {
+    color: var(--laghari)
+}
+
 .solar {
     color: var(--solar);
 }

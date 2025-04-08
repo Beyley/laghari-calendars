@@ -80,7 +80,7 @@ class HekenicCalendar {
         let style_to_use = Language.style_class_name(language);
 
         if (language != Language.solar && language != Language.martian && language != Language.neptunian) {
-            style_to_use = Language.style_class_name(Language.english);
+            style_to_use = Language.style_class_name(Language.solar);
         }
 
         return style_to_use;
