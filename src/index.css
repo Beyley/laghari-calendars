@@ -190,8 +190,8 @@ tr:nth-child(odd).martian td:nth-child(odd).martian {
     background-color: var(--slight-martian-highlight);
 }
 
-tr:nth-child(even) td:nth-child(even) .neptunian,
-tr:nth-child(odd) td:nth-child(odd) .neptunian {
+tr:nth-child(even).neptunian td:nth-child(even).neptunian,
+tr:nth-child(odd).neptunian td:nth-child(odd).neptunian {
     background-color: var(--slight-neptunian-highlight);
 }
 
